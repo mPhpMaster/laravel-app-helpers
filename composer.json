@@ -1,0 +1,61 @@
+{
+  "name": "mphpmaster/laravel-app-helpers",
+  "description": "Laravel Helpers: App",
+  "type": "library",
+  "keywords": [
+    "helpers",
+    "app helpers"
+  ],
+  "require": {
+    "php": ">=8.1",
+    "laravel/framework": ">=9",
+    "laravel/helpers": "^1.5"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "mPhpMaster",
+      "email": "59211285+mPhpMaster@users.noreply.github.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MPhpMaster\\LaravelAppHelpers\\": "src/"
+    },
+    "files": [
+      "src/Helpers/FCheckers.php",
+      "src/Helpers/FFiles.php",
+      "src/Helpers/FGetters.php",
+      "src/Helpers/FHelpers.php",
+      "src/Helpers/FSetters.php"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "MPhpMaster\\LaravelAppHelpers\\Providers\\HelperProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "scripts": {
+    "c:c": [
+      "@php artisan cache:clear",
+      "@php artisan route:clear",
+      "@php artisan config:clear",
+      "@php artisan view:clear"
+    ],
+    "a:routes": [
+      "@php artisan route:list --no-ansi > routes.txt"
+    ],
+    "m:c": [
+      "mkdir -p storage/framework/{sessions,views,cache}",
+      "chmod -R 775 storage/framework",
+      "chown -R `whoami`:nobody storage/framework"
+    ]
+  },
+  "version": "1.0.0"
+}
