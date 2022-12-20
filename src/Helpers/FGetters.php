@@ -166,17 +166,3 @@ if( !function_exists('getDefaultLocale') ) {
         return config('app.locale', config('app.fallback_locale', $default)) ?: $default;
     }
 }
-
-if( !function_exists('filenameWithoutExtension') ) {
-    /**
-     * returns the given filename without extension
-     *
-     * @param string $filename
-     *
-     * @return string|string[]|null
-     */
-    function filenameWithoutExtension(string $filename): array|string|null
-    {
-        return $filename ? pathinfo($filename, PATHINFO_FILENAME) : null;
-    }
-}
