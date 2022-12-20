@@ -1,6 +1,11 @@
 # Laravel Helpers: App
-######  *v1.0.0*
+###### Part of mphpmaster/laravel-helpers:^3
+<small>v1.0.0</small>
 
+## Dependencies:
+ - php >=8.1
+ - laravel >=9
+ - laravel/helpers ^1.5
 
 ## Installation:
   ```shell
@@ -39,6 +44,9 @@
   - `includeAllSubFiles`
   - `includeIfExists`
   - `includeOnceIfExists`
+
+
+> *Inspired by laravel/helpers.*
 
 ## License
 
