@@ -1,6 +1,13 @@
 # Laravel Helpers: App
-######  *v1.0.0*
+###### Part of mphpmaster/laravel-helpers:^3
+<small>v1.0.2</small>
 
+## Dependencies:
+* php >=8.1 **REQUIRED IN YOUR PROJECT**
+* laravel >=9 **REQUIRED IN YOUR PROJECT**
+* illuminate/support >=9 _composer will install it automaticly_
+* illuminate/filesystem >=9 _composer will install it automaticly_
+* laravel/helpers ^1.5 _composer will install it automaticly_
 
 ## Installation:
   ```shell
@@ -10,7 +17,6 @@
 ## Content
 - Providers:
     - `MPhpMaster\LaravelAppHelpers\Providers\HelperProvider`.
-
 
 - Functions:
   - `currentLocale`
@@ -39,6 +45,9 @@
   - `includeAllSubFiles`
   - `includeIfExists`
   - `includeOnceIfExists`
+
+
+> *Inspired by laravel/helpers.*
 
 ## License
 

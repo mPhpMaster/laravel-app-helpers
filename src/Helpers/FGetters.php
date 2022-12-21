@@ -1,4 +1,7 @@
 <?php
+/*
+ * Copyright © 2022. mPhpMaster(https://github.com/mPhpMaster) All rights reserved.
+ */
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasRelationships;
@@ -167,16 +170,18 @@ if( !function_exists('getDefaultLocale') ) {
     }
 }
 
-if( !function_exists('filenameWithoutExtension') ) {
+if( !function_exists('getValue') ) {
     /**
-     * returns the given filename without extension
+     * Return the default value of the given value.
      *
-     * @param string $filename
+     * @param mixed $value
+     * @param mixed ...$args
      *
-     * @return string|string[]|null
+     * @return mixed
+     * @see \value()
      */
-    function filenameWithoutExtension(string $filename): array|string|null
+    function getValue($value, ...$args): mixed
     {
-        return $filename ? pathinfo($filename, PATHINFO_FILENAME) : null;
+        return is_callable($value) && !is_string($value) ? $value(...$args) : value($value, ...$args);
     }
 }
