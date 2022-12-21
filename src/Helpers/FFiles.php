@@ -1,4 +1,7 @@
 <?php
+/*
+ * Copyright © 2022. mPhpMaster(https://github.com/mPhpMaster) All rights reserved.
+ */
 
 use Illuminate\Filesystem\Filesystem;
 
@@ -30,7 +33,7 @@ if( !function_exists('includeSubFiles') ) {
         if( file_exists($sub_path) ) {
             collect((new Filesystem)->files($sub_path))
                 ->map(function($v) use ($incCallBack) {
-                    if( trimLower($v->getExtension()) !== 'php' ) {
+                    if( strtolower(trim($v->getExtension())) !== 'php' ) {
                         return false;
                     }
 
@@ -81,7 +84,7 @@ if( !function_exists('includeIfExists') ) {
      *
      * @return null|mixed
      */
-    function includeIfExists(string $file,mixed $when_not_exists = null)
+    function includeIfExists(string $file, mixed $when_not_exists = null)
     {
         return file_exists($file) ? include($file) : getValue($when_not_exists);
     }
@@ -101,10 +104,10 @@ if( !function_exists('includeOnceIfExists') ) {
     {
         if( file_exists($file) ) {
             if( ($return = include_once($file)) === true ) {
-                $return = isClosure($when_already_included) ? getValue($when_already_included, ...[ $file ]) : $when_already_included;
+                $return = $when_already_included instanceof Closure ? getValue($when_already_included, ...[ $file ]) : $when_already_included;
             }
         } else {
-            $return = $when_not_exists = isClosure($when_not_exists) ? getValue($when_not_exists, ...[ $file ]) : $when_not_exists;
+            $return = $when_not_exists = $when_not_exists instanceof Closure ? getValue($when_not_exists, ...[ $file ]) : $when_not_exists;
         }
 
         return getValue($return, ...[ $file ]);
@@ -120,11 +123,11 @@ if( !function_exists('fixPath') ) {
      *
      * @return string
      */
-    function fixPath(string $path, $replace_separator_with = DIRECTORY_SEPARATOR)
+    function fixPath(string $path, $replace_separator_with = DIRECTORY_SEPARATOR): string
     {
         $replace_separator_with = $replace_separator_with ?: DIRECTORY_SEPARATOR;
 
-        return strReplaceAll([
+        return replaceAll([
                               "\\" => $replace_separator_with,
                               "/" => $replace_separator_with,
                               $replace_separator_with . $replace_separator_with => $replace_separator_with,

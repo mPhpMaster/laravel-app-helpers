@@ -1,30 +1,29 @@
 <?php
+/*
+ * Copyright © 2022. mPhpMaster(https://github.com/mPhpMaster) All rights reserved.
+ */
 
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Route;
 
-if( !function_exists('strReplaceAll') ) {
+if( !function_exists('replaceAll') ) {
     /**
      * Replace a given data in string.
      *
-     * @param Arrayable<mixed, \Closure|callable|mixed>|array<mixed, \Closure|callable|mixed> $_searchAndReplace
-     * @param string                                                                          $_subject
+     * @param iterable|\Closure $searchAndReplace [ searchFor => replaceWith ]
+     * @param string|\Closure   $subject
      *
      * @return string
      */
-    function strReplaceAll($searchAndReplace, string $subject): string
+    function replaceAll(iterable|Closure $searchAndReplace, string|Closure $subject): string
     {
-        if( isArrayable($searchAndReplace) ) {
-            /** @var array $searchAndReplace */
-            $searchAndReplace = $searchAndReplace->toArray();
+        $subject = (string) value($subject);
+        $searchAndReplace = value($searchAndReplace);
+
+        foreach( $searchAndReplace as $search => $replace ) {
+            $subject = str_ireplace($search, $replace, $subject);
         }
 
-        $_subject = $subject;
-        foreach( (array) $searchAndReplace as $search => $replace ) {
-            $_subject = str_ireplace($search, $replace, $_subject);
-        }
-
-        return $_subject;
+        return $subject;
     }
 }
 
@@ -123,12 +122,10 @@ if( !function_exists('apiResource') ) {
         }
 
         $sName = str_singular($name);
-        if( $only['forceDestroy'] ?? $only['force_destroy'] ?? false )
-        {
+        if( $only[ 'forceDestroy' ] ?? $only[ 'force_destroy' ] ?? false ) {
             Route::delete("{$name}/{{$sName}}/force", [ $controller, 'forceDestroy' ])->name("{$name}.force_delete")->withTrashed();
         }
-        if( $only['restore'] ?? false )
-        {
+        if( $only[ 'restore' ] ?? false ) {
             Route::post("{$name}/{{$sName}}/restore", [ $controller, 'restore' ])->name("{$name}.restore")->withTrashed();
         }
 

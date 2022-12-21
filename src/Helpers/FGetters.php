@@ -1,4 +1,7 @@
 <?php
+/*
+ * Copyright © 2022. mPhpMaster(https://github.com/mPhpMaster) All rights reserved.
+ */
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasRelationships;
@@ -164,5 +167,21 @@ if( !function_exists('getDefaultLocale') ) {
         $default = value($default);
 
         return config('app.locale', config('app.fallback_locale', $default)) ?: $default;
+    }
+}
+
+if( !function_exists('getValue') ) {
+    /**
+     * Return the default value of the given value.
+     *
+     * @param mixed $value
+     * @param mixed ...$args
+     *
+     * @return mixed
+     * @see \value()
+     */
+    function getValue($value, ...$args): mixed
+    {
+        return is_callable($value) && !is_string($value) ? $value(...$args) : value($value, ...$args);
     }
 }
