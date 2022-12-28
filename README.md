@@ -1,6 +1,6 @@
 # Laravel Helpers: App
 ###### Part of mphpmaster/laravel-helpers:^3
-<small>v1.0.2</small>
+<small>v1.0.3</small>
 
 ## Dependencies:
 * php >=8.1 **REQUIRED IN YOUR PROJECT**

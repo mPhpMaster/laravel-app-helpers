@@ -109,7 +109,7 @@ if( !function_exists('apiResource') ) {
      *
      * @param string $name
      * @param string $controller
-     * @param array  $options
+     * @param array  $options [except=>,only=>]
      *
      * @return \Illuminate\Routing\PendingResourceRegistration
      */
@@ -118,8 +118,16 @@ if( !function_exists('apiResource') ) {
         $only = [ 'index', 'show', 'store', 'update', 'destroy', 'forceDestroy', 'force_destroy', 'forceDelete', 'force_delete', 'restore' ];
 
         if( isset($options[ 'except' ]) ) {
-            $only = array_diff($only, (array) $options[ 'except' ]);
+            $options[ 'except' ] = array_map(fn($value) => ends_with(snake_case($value), "_delete") ? str_ireplace("_delete", "_destroy", snake_case($value)) : $value, (array) $options[ 'except' ]);
+            if( in_array('force_destroy', $options[ 'except' ]) ) {
+                $options[ 'except' ][] = 'force_delete';
+            }
+
+            $only = array_diff($only, $options[ 'except' ]);
+            $only = array_diff($only, array_map('snake_case', $options[ 'except' ]));
+            $only = array_diff($only, array_map('camel_case', $options[ 'except' ]));
         }
+        $only = array_combine($only, $only);
 
         $sName = str_singular($name);
         if( $only[ 'forceDestroy' ] ?? $only[ 'force_destroy' ] ?? false ) {
@@ -133,7 +141,7 @@ if( !function_exists('apiResource') ) {
             $name,
             $controller,
             array_merge([
-                            'only' => $only,
+                            'only' => array_keys($only),
                         ], $options)
         );
     }
