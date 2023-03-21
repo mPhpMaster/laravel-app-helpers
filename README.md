@@ -1,6 +1,6 @@
 # Laravel Helpers: App
 ###### Part of mphpmaster/laravel-helpers:^3
-<small>v1.0.3</small>
+<small>v2.0.0</small>
 
 ## Dependencies:
 * php >=8.1 **REQUIRED IN YOUR PROJECT**
@@ -17,6 +17,18 @@
 ## Content
 - Providers:
     - `MPhpMaster\LaravelAppHelpers\Providers\HelperProvider`.
+
+- Macros:
+  - Add `firstOrCreateOrRestore` method to `Query Builder` and `Model`
+  - Add `randomOr` method to `Query Builder` and `Model`
+  - Add `randomOrCreate` method to `Query Builder` and `Model`
+  - Add `randomOrNew` method to `Query Builder` and `Model`
+  - Add `randomOrFactory` method to `Query Builder` and `Model`
+  - Add `randomOrCreateFactory` method to `Query Builder` and `Model`
+  - Add `randomOrNewFactory` method to `Query Builder` and `Model`
+  - Add `randomOr` method to `Model Factory`
+  - Add `randomOrCreate` method to `Model Factory`
+  - Add `randomOrNew` method to `Model Factory`
 
 - Functions:
   - `currentLocale`
